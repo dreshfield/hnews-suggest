@@ -10,16 +10,20 @@ module News
         end
 
         def start
+            scan_page
             get_links
             generate_articles
         end
 
         private
 
-        def get_links
+        def scan_page
             page = open("https://news.ycombinator.com")
-            doc = Nokogiri::HTML(page)
-            @links = doc.css("td.title").select { |td| links td }
+            @doc = Nokogiri::HTML(page)
+        end
+
+        def get_links
+            @links = @doc.css("td.title").select { |td| links td }
             @links = @links.map { |i| i.at("a") }
         end
 
