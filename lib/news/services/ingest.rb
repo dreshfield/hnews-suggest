@@ -34,7 +34,8 @@ module News
         end
 
         def create_article title, url
-            Article.new title: title, url: url
+            article = Article.new title: title, url: url
+            article.save
         end
 
         def links td
