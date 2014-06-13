@@ -1,4 +1,5 @@
 require "news/models"
+require "helpers/sequel"
 
 FactoryGirl.define do
     factory :keyword
