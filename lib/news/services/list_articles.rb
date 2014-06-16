@@ -18,7 +18,7 @@ module News
 
         def display_articles
             @articles.each do |article|
-                @output.puts article.title
+                @output.puts "[#{article.id}] #{article.title}"
             end
         end
     end
