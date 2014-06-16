@@ -3,11 +3,20 @@ require "news/services/ingest"
 
 module News
     class ArticleIngestTest < MiniTest::Test
-        def test_ingests_articles_from_hn
-            ingest = Ingest.new
-            ingest.start
+        def setup
+            @ingest = Ingest.new
+        end
 
-            assert_equal 30, ingest.articles.length
+        def test_ingests_articles_from_hn
+            @ingest.start
+
+            assert_equal 30, @ingest.articles.length
+        end
+
+        def test_ingest_clears_existing_articles
+            @ingest.start
+
+            assert_equal 30, Article.all.count
         end
     end
 end
