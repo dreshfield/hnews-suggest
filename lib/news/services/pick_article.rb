@@ -1,3 +1,5 @@
+require "open-uri"
+
 module News
     class PickArticle
         def initialize opts={}
@@ -8,6 +10,8 @@ module News
         def start
             @id = @input.gets.chomp
             choose
+
+            get_content unless @article.nil?
             render
         end
 
@@ -15,6 +19,16 @@ module News
 
         def choose
             @article = Article[@id]
+        end
+
+        def get_content
+            paras = []
+            doc = Nokogiri::HTML(open(@article.url))
+            doc.css("p").each do |para|
+                paras << para.content
+            end
+            @article.content = paras.join(" ")
+            @article.save
         end
 
         def render

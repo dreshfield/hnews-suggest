@@ -8,5 +8,12 @@ FactoryGirl.define do
     factory :article do
         title "Programmers block"
         url "http://gregchapple.com/programmers-block/"
+        content ""
+    end
+
+    factory :article_with_content, class: Article do
+        title "Programmers block"
+        url "http://gregchapple.com/programmers-block/"
+        content "Your fingers sit idly on your keyboard, eagerly awaiting the signal from your brain to produce this masterpiece of software. Nothing."
     end
 end

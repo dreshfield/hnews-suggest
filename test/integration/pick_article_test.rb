@@ -5,7 +5,7 @@ module News
     class PickArticleText < MiniTest::Test
 
         def setup
-            @article = create(:article, {title: "Programmers block"})
+            @article = create(:article)
             @output = StringIO.new
         end
 
@@ -16,6 +16,17 @@ module News
             service.start
 
             assert_includes @output.string, "Picked: Programmers block"
+        end
+
+        def test_article_content_is_set
+            input = StringIO.new("#{@article.id}\n")
+
+            service = PickArticle.new input: input, output: @output
+            service.start
+
+            article = Article.first(id: @article.id)
+
+            refute article.content.empty?
         end
 
         def test_id_is_nil
