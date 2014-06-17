@@ -3,7 +3,10 @@ require "helpers/sequel"
 require "helpers/database_cleaner"
 
 FactoryGirl.define do
-    factory :keyword
+    factory :keyword do
+        rank 0
+        last_used Time.now
+    end
 
     factory :article do
         title "Programmers block"
