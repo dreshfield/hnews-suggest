@@ -42,7 +42,7 @@ module News
         end
 
         def create_article title, url
-            article = Article.new title: title, url: url
+            article = Article.new title: title, url: url, rank: 0
             article.save
         end
 

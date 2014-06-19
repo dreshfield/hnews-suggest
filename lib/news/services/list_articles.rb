@@ -1,6 +1,6 @@
 module News
     class ListArticles
-        def initialize options
+        def initialize options={}
             @input = options[:input] || $stdin
             @output = options[:output] || $stdout
         end
