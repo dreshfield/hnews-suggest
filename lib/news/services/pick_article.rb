@@ -37,6 +37,7 @@ module News
             else
                 @output.puts "Picked: #{@article.title}"
             end
+            return @article
         end
     end
 end

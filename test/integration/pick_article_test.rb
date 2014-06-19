@@ -46,5 +46,14 @@ module News
 
             assert_includes @output.string, "Please enter an id"
         end
+
+        def test_article_is_returned
+            input = StringIO.new("#{@article.id}\n")
+
+            service = PickArticle.new input: input, output: @output
+            article = service.start
+
+            assert_equal @article.id, article.id
+        end
     end
 end
