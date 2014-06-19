@@ -10,6 +10,13 @@ module News
             @article = create(:article_with_content)
         end
 
+        def test_message_output
+            service = IndexArticle.new(@article, {input: @input, output: @output})
+            service.start
+
+            assert_includes @output.string, "Indexed #{@article.title}"
+        end
+
         def test_service_filters_end_words
             service = IndexArticle.new(@article, {input: @input, output: @output})
             service.start

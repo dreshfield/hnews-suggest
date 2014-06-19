@@ -14,10 +14,13 @@ module News
             index :content
         end
 
+        private
+
         def index key
             filter_end_words @article[key]
             generate_keywords
             save key
+            render
         end
 
         def filter_end_words str
@@ -43,6 +46,10 @@ module News
         def save key
             @article[key] = @content
             @article.save
+        end
+
+        def render
+            @output.puts "Indexed #{@article.title}"
         end
     end
 end
