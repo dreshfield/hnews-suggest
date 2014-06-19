@@ -24,6 +24,7 @@ module News
                 title_words = article.title.split(/\W+/)
                 title_words.map! { |w| Keyword.first(word: w.downcase) }.compact
 
+                article.rank = 0
                 title_words.each do |kw|
                     article.rank += kw.rank unless kw.nil?
                 end
