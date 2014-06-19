@@ -17,6 +17,9 @@ module News
 
         desc :suggest, "Suggest an article"
         def suggest
+            ingest = Ingest.new
+            ingest.start
+
             suggestion = SuggestArticle.new
             suggestion.start
         end
