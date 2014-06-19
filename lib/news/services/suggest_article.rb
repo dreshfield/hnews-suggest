@@ -34,10 +34,10 @@ module News
 
         def suggest_articles
             articles = Article.exclude(rank: nil)
-            articles = articles.order(:rank).limit(5)
+            articles = articles.order(:rank).limit(5).reverse
 
             articles.each do |a|
-                @output.puts "[#{a.id}] #{a.title}"
+                @output.puts "[#{a.id}] #{a.title} (#{a.rank})"
             end
         end
 

@@ -9,6 +9,15 @@ module News
             @output = StringIO.new
         end
 
+        def test_prompted_for_id
+            input = StringIO.new("#{@article.id}\n")
+
+            service = PickArticle.new input: input, output: @output
+            service.start
+
+            assert_includes @output.string, "Please enter an id:"
+        end
+
         def test_article_can_be_chosen
             input = StringIO.new("#{@article.id}\n")
 

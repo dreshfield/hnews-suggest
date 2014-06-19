@@ -8,6 +8,7 @@ module News
         end
 
         def start
+            @output.print "Please enter an id:"
             @id = @input.gets.chomp
             choose
 

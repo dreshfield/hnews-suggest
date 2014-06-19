@@ -1,6 +1,6 @@
 module News
 
-    END_WORDS = %w(a in the at of on or i are you re one s ok to too all and that ve so yet be do it for now with me)
+    END_WORDS = %w(a in is as an if the at of on or i are you re one s ok to too all and that ve so yet be do it for now with me)
 
     class IndexArticle
         def initialize article, opts={}
