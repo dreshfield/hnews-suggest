@@ -50,5 +50,14 @@ module News
 
             refute keyword.last_used == now
         end
+
+        def test_article_title_is_indexed
+            article = create(:article, {title: "Ruby programming", content: "this is about ruby", rank: 0})
+            service = IndexArticle.new(article, {input: @input, output: @output})
+            service.start
+
+            word = Keyword.first(word: "programming")
+            refute word.nil?
+        end
     end
 end

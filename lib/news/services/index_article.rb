@@ -10,13 +10,17 @@ module News
         end
 
         def start
-            filter_end_words
-            generate_keywords
-            save_content
+            index :title
+            index :content
         end
 
-        def filter_end_words
-            str = @article.content
+        def index key
+            filter_end_words @article[key]
+            generate_keywords
+            save key
+        end
+
+        def filter_end_words str
             words = str.split(/\W+/)
             words = words.map{ |word| word.downcase }
             @words = words.select { |word| word unless END_WORDS.include? word }
@@ -36,8 +40,8 @@ module News
             end
         end
 
-        def save_content
-            @article.content = @content
+        def save key
+            @article[key] = @content
             @article.save
         end
     end
