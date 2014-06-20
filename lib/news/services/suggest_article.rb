@@ -38,7 +38,11 @@ module News
             articles = articles.order(:rank).limit(5).reverse
 
             articles.each do |a|
-                @output.puts "[#{a.id}] #{a.title} (#{a.rank})"
+                @output.puts <<EOF
+[#{a.id}] #{a.title} (#{a.rank})
+    #{a.url}
+
+EOF
             end
         end
 

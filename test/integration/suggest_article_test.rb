@@ -17,6 +17,7 @@ module News
             service.start
 
             assert_includes output.string, "[#{article.id}] On Software Development"
+            assert_includes output.string, article.url
         end
 
         def test_service_sets_article_rank
