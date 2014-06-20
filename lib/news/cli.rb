@@ -25,6 +25,22 @@ module News
 
             suggestion = SuggestArticle.new
             suggestion.start
+
+            pick = PickArticle.new
+            article = pick.start
+
+            $stdout.print "Did you like this article? [y/n]"
+            answer = $stdin.gets.chomp.downcase
+            if answer == "y"
+                scrape = ScrapeArticle.new article
+                scrape.start
+
+                index = IndexArticle.new article
+                index.start
+            end
+
+            article.read = true
+            article.save
         end
     end
 end
