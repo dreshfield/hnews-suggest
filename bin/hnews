@@ -1,11 +1,10 @@
 #!/usr/bin/env ruby
 
-require "bundler"
-Bundler.require
-
 $: << File.expand_path("../../lib", __FILE__)
 $: << File.expand_path("../../config", __FILE__)
 
+require "sequel"
+require "thor"
 require "config"
 require "hnews"
 
