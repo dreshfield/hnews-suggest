@@ -1,7 +1,7 @@
 require "test_helper"
-require "news/services/list_articles"
+require "hnews/services/list_articles"
 
-module News
+module HNews
     class ListArticlesTest < MiniTest::Test
         def test_articles_are_listed
             article = create(:article, {title: "Programmers block", url: "http://gregchapple.com/programmers-block" })

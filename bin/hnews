@@ -7,7 +7,7 @@ $: << File.expand_path("../../lib", __FILE__)
 $: << File.expand_path("../../config", __FILE__)
 
 require "config"
-require "news"
+require "hnews"
 
 
-News::App.start ARGV
+HNews::App.start ARGV

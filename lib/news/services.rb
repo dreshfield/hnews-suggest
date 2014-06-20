@@ -1,6 +1,0 @@
-require "news/services/index_article"
-require "news/services/ingest"
-require "news/services/list_articles"
-require "news/services/pick_article"
-require "news/services/suggest_article"
-require "news/services/scrape_article"

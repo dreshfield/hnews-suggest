@@ -1,0 +1,6 @@
+require "hnews/services/index_article"
+require "hnews/services/ingest"
+require "hnews/services/list_articles"
+require "hnews/services/pick_article"
+require "hnews/services/suggest_article"
+require "hnews/services/scrape_article"

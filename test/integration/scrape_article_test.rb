@@ -1,7 +1,7 @@
 require "test_helper"
-require "news/services/scrape_article"
+require "hnews/services/scrape_article"
 
-module News
+module HNews
     class ScrapeArticleTest < MiniTest::Test
         def setup
             @article = create(:article)

@@ -1,7 +1,7 @@
 require "test_helper"
-require "news/services/pick_article"
+require "hnews/services/pick_article"
 
-module News
+module HNews
     class PickArticleText < MiniTest::Test
 
         def setup

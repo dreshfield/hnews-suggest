@@ -1,4 +1,4 @@
-module News
+module HNews
     class ListArticles
         def initialize options={}
             @input = options[:input] || $stdin

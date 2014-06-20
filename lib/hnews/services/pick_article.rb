@@ -1,4 +1,4 @@
-module News
+module HNews
     class PickArticle
         def initialize opts={}
             @input = opts[:input] || $stdin

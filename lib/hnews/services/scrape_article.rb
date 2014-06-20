@@ -1,6 +1,6 @@
 require "open-uri"
 
-module News
+module HNews
     class ScrapeArticle
         def initialize article, opts={}
             @input = opts[:input] || $stdin

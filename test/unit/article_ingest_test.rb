@@ -1,7 +1,7 @@
 require "test_helper"
-require "news/services/ingest"
+require "hnews/services/ingest"
 
-module News
+module HNews
     class ArticleIngestTest < MiniTest::Test
         def setup
             @ingest = Ingest.new

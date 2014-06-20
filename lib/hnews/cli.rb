@@ -1,4 +1,4 @@
-module News
+module HNews
     class App < Thor
         desc :learn, "Learn what articles you like"
         def learn

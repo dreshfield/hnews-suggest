@@ -1,7 +1,7 @@
 require "test_helper"
-require "news/services/suggest_article"
+require "hnews/services/suggest_article"
 
-module News
+module HNews
     class IndexArticleTest < MiniTest::Test
 
         def test_service_suggests_an_article

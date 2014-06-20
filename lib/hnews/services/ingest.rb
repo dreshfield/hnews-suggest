@@ -1,7 +1,7 @@
 require "nokogiri"
 require "open-uri"
 
-module News
+module HNews
     class Ingest
         attr_reader :articles
 

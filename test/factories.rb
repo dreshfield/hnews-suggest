@@ -1,4 +1,4 @@
-require "news/models"
+require "hnews/models"
 require "helpers/sequel"
 require "helpers/database_cleaner"
 
