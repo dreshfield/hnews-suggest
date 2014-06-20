@@ -13,7 +13,7 @@ module News
         private
 
         def get_articles
-            @articles = Article.all
+            @articles = Article.where(read: nil).limit(30)
         end
 
         def display_articles

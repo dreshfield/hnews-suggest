@@ -13,10 +13,5 @@ module News
             assert_equal 30, @ingest.articles.length
         end
 
-        def test_ingest_clears_existing_articles
-            @ingest.start
-
-            assert_equal 30, Article.all.count
-        end
     end
 end

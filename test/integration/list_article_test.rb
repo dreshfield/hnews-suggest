@@ -13,5 +13,18 @@ module News
             assert_includes output.string, "[#{article.id}] Programmers block"
         end
 
+        def test_thirty_articles_are_listed
+            35.times do |i|
+                create(:article)
+            end
+
+            output = StringIO.new
+            service = ListArticles.new input: nil, output: output
+            service.start
+
+            articles = output.string.split("\n")
+
+            assert_equal 30, articles.length
+        end
     end
 end

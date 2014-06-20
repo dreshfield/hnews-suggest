@@ -16,7 +16,7 @@ module News
         private
 
         def get_articles
-            @articles = Article.exclude(title: nil)
+            @articles = Article.where(read: nil).exclude(title: nil)
         end
 
         def calculate_article_rank
@@ -34,7 +34,7 @@ module News
         end
 
         def suggest_articles
-            articles = Article.exclude(rank: nil)
+            articles = Article.where(read: nil).exclude(rank: nil)
             articles = articles.order(:rank).limit(5).reverse
 
             articles.each do |a|

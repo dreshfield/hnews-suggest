@@ -10,20 +10,12 @@ module News
         end
 
         def start
-            remove_existing
             scan_page
             get_links
             generate_articles
         end
 
         private
-
-        def remove_existing
-            articles = Article.all
-            articles.each do |article|
-                article.delete
-            end
-        end
 
         def scan_page
             page = open("https://news.ycombinator.com")
@@ -37,11 +29,14 @@ module News
 
         def generate_articles
             @links.each do |link|
-                @articles << create_article(link.content, link[:href])
+                @articles << create_or_get_article(link.content, link[:href])
             end
         end
 
-        def create_article title, url
+        def create_or_get_article title, url
+            existing_article = Article.first(url: url)
+            return existing_article unless existing_article.nil?
+
             article = Article.new title: title, url: url, rank: 0
             article.save
         end
