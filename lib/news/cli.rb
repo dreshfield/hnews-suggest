@@ -11,6 +11,9 @@ module News
             pick = PickArticle.new
             article = pick.start
 
+            scrape = ScrapeArticle.new article
+            scrape.start
+
             index = IndexArticle.new article
             index.start
         end
