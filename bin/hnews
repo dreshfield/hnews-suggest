@@ -2,9 +2,29 @@
 
 $: << File.expand_path("../../lib", __FILE__)
 $: << File.expand_path("../../config", __FILE__)
+require "fileutils"
 
 require "sequel"
 require "thor"
+
+db_dir = File.expand_path "~/.hnews/"
+db_file = File.join db_dir, "db.sqlite3"
+unless File.exists? db_file
+    puts "Creating database file"
+    FileUtils.mkdir_p db_dir
+
+    Sequel.extension :migration
+    db = Sequel.connect "sqlite://#{db_file}"
+
+    root = File.expand_path File.dirname(__FILE__)
+    root = File.dirname root
+    migrations = File.join root, "db/migrate"
+
+    puts "Running migrations"
+    Sequel::Migrator.run db, migrations
+    puts "-------"
+end
+
 require "config"
 require "hnews"
 
