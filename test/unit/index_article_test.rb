@@ -1,70 +1,67 @@
 require "test_helper"
 require "hnews/services/index_article"
 
-module HNews
-    class IndexArticleTest < MiniTest::Test
+describe HNews::IndexArticle do
+    before do
+        @input = StringIO.new
+        @output = StringIO.new
+        @article = create(:article_with_content)
+    end
 
-        def setup
-            @input = StringIO.new
-            @output = StringIO.new
-            @article = create(:article_with_content)
+    it "outputs the correct message" do
+        service = HNews::IndexArticle.new(@article, {input: @input, output: @output})
+        service.start
+
+        assert_includes @output.string, "Indexed #{@article.title}"
+    end
+
+    it "filters out end words" do
+        service = HNews::IndexArticle.new(@article, {input: @input, output: @output})
+        service.start
+
+        content = @article.content
+        words = content.split(/\W+/)
+
+        HNews::END_WORDS.each do |end_word|
+            refute words.include?(end_word), "End word '#{end_word}' found in content"
         end
+    end
 
-        def test_message_output
-            service = IndexArticle.new(@article, {input: @input, output: @output})
-            service.start
+    it "generates keywords" do
+        service = HNews::IndexArticle.new(@article, {input: @input, output: @output})
+        service.start
 
-            assert_includes @output.string, "Indexed #{@article.title}"
-        end
+        keywords = Keyword.all.count
+        assert keywords > 0
+    end
 
-        def test_service_filters_end_words
-            service = IndexArticle.new(@article, {input: @input, output: @output})
-            service.start
+    it "increases the keyword rank" do
+        keyword = create(:keyword, {word: 'keyboard', rank: 5})
+        service = HNews::IndexArticle.new(@article, {input: @input, output: @output})
+        service.start
 
-            content = @article.content
-            words = content.split(/\W+/)
+        keyword = Keyword.first(word: 'keyboard')
 
-            END_WORDS.each do |end_word|
-                refute words.include?(end_word), "End word '#{end_word}' found in content"
-            end
-        end
+        assert_equal keyword.rank, 6
+    end
 
-        def test_service_generates_keywords
-            service = IndexArticle.new(@article, {input: @input, output: @output})
-            service.start
+    it "update the last_used attribute on the keywords" do
+        now = Time.now
+        keyword = create(:keyword, {word: 'keyboard', last_used: now})
+        service = HNews::IndexArticle.new(@article, {input: @input, output: @output})
+        service.start
 
-            keywords = Keyword.all.count
-            assert keywords > 0
-        end
+        keyword = Keyword.first(word: 'keyboard')
 
-        def test_existing_keyword_rank_is_increased
-            keyword = create(:keyword, {word: 'keyboard', rank: 5})
-            service = IndexArticle.new(@article, {input: @input, output: @output})
-            service.start
+        refute keyword.last_used == now
+    end
 
-            keyword = Keyword.first(word: 'keyboard')
+    it "indexes the articles title" do
+        article = create(:article, {title: "Ruby programming", content: "this is about ruby", rank: 0})
+        service = HNews::IndexArticle.new(article, {input: @input, output: @output})
+        service.start
 
-            assert_equal 6, keyword.rank
-        end
-
-        def test_keyword_last_used_time_is_updated
-            now = Time.now
-            keyword = create(:keyword, {word: 'keyboard', last_used: now})
-            service = IndexArticle.new(@article, {input: @input, output: @output})
-            service.start
-
-            keyword = Keyword.first(word: 'keyboard')
-
-            refute keyword.last_used == now
-        end
-
-        def test_article_title_is_indexed
-            article = create(:article, {title: "Ruby programming", content: "this is about ruby", rank: 0})
-            service = IndexArticle.new(article, {input: @input, output: @output})
-            service.start
-
-            word = Keyword.first(word: "programming")
-            refute word.nil?
-        end
+        word = Keyword.first(word: "programming")
+        refute word.nil?
     end
 end

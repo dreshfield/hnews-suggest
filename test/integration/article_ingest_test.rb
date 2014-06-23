@@ -1,17 +1,14 @@
 require "test_helper"
 require "hnews/services/ingest"
 
-module HNews
-    class ArticleIngestTest < MiniTest::Test
-        def setup
-            @ingest = Ingest.new
-        end
+describe HNews::Ingest do
+    before do
+        @ingest = HNews::Ingest.new
+    end
 
-        def test_ingests_articles_from_hn
-            @ingest.start
+    it "ingests articles from Hacker News" do
+        @ingest.start
 
-            assert_equal 30, @ingest.articles.length
-        end
-
+        assert_equal 30, @ingest.articles.length
     end
 end

@@ -1,15 +1,26 @@
-require "bundler"
-
-Bundler.require
-Bundler.require :test
-
 ENV["APP_ENV"] = "test"
 
+require "sequel"
+require "factory_girl"
+require "database_cleaner"
 require "config"
 require "factories"
 
-DatabaseCleaner.strategy = :transaction
+require "minitest"
+require "minitest/autorun"
 
-class MiniTest::Test
+
+DatabaseCleaner.strategy = :transaction
+class MiniTest::Spec
+    before :each do
+        DatabaseCleaner.start
+    end
+
+    after :each do
+        DatabaseCleaner.clean
+    end
+end
+
+class MiniTest::Spec
     include FactoryGirl::Syntax::Methods
 end

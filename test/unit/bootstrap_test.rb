@@ -1,7 +1,7 @@
 require "test_helper"
 
-class BoostrapTest < MiniTest::Test
-    def test_bootstrap_test_suite
+describe "Bootstrap test" do
+    it "can be run" do
         assert true
     end
 end

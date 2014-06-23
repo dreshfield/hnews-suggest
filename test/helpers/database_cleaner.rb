@@ -1,11 +1,9 @@
-module MiniTest
-    class Test
-        def before_setup
-            DatabaseCleaner.start
-        end
+class MiniTest::Spec
+    before :each do
+        DatabaseCleaner.start
+    end
 
-        def after_teardown
-            DatabaseCleaner.clean
-        end
+    after :each do
+        DatabaseCleaner.clean
     end
 end

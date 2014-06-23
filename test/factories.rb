@@ -1,6 +1,6 @@
 require "hnews/models"
+require "hnews/models/article"
 require "helpers/sequel"
-require "helpers/database_cleaner"
 
 FactoryGirl.define do
     factory :keyword do
@@ -11,7 +11,7 @@ FactoryGirl.define do
     factory :article do
         title "Programmers block"
         url "http://gregchapple.com/programmers-block/"
-        content ""
+        content "Your fingers sit idly on your keyboard, eagerly awaiting the signal from your brain to produce this masterpiece of software. Nothing."
     end
 
     factory :article_with_content, class: Article do

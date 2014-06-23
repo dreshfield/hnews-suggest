@@ -1,60 +1,57 @@
 require "test_helper"
 require "hnews/services/suggest_article"
 
-module HNews
-    class IndexArticleTest < MiniTest::Test
+describe HNews::IndexArticle do
+    it "suggests an article" do
+        create(:keyword, {word: 'software', rank: 5})
+        create(:keyword, {word: 'keyboard', rank: 2})
+        create(:keyword, {word: 'development', rank: 6})
 
-        def test_service_suggests_an_article
-            create(:keyword, {word: 'software', rank: 5})
-            create(:keyword, {word: 'keyboard', rank: 2})
-            create(:keyword, {word: 'development', rank: 6})
+        create(:article_with_content)
+        article = create(:article, {title: 'On Software Development', rank: 0})
 
-            create(:article_with_content)
-            article = create(:article, {title: 'On Software Development', rank: 0})
+        output = StringIO.new
+        service = HNews::SuggestArticle.new input: nil, output: output
+        service.start
 
-            output = StringIO.new
-            service = SuggestArticle.new input: nil, output: output
-            service.start
+        assert_includes output.string, "[#{article.id}] On Software Development"
+        assert_includes output.string, article.url
+    end
 
-            assert_includes output.string, "[#{article.id}] On Software Development"
-            assert_includes output.string, article.url
-        end
+    it "sets the articles rank" do
+        create(:keyword, {word: 'software', rank: 5})
+        create(:keyword, {word: 'keyboard', rank: 2})
+        create(:keyword, {word: 'development', rank: 6})
 
-        def test_service_sets_article_rank
-            create(:keyword, {word: 'software', rank: 5})
-            create(:keyword, {word: 'keyboard', rank: 2})
-            create(:keyword, {word: 'development', rank: 6})
+        create(:article_with_content)
+        article = create(:article, {title: 'On Software Development', rank: 0})
 
-            create(:article_with_content)
-            article = create(:article, {title: 'On Software Development', rank: 0})
+        output = StringIO.new
+        service = HNews::SuggestArticle.new input: nil, output: output
+        service.start
 
-            output = StringIO.new
-            service = SuggestArticle.new input: nil, output: output
-            service.start
+        article = Article.first(id: article.id)
 
-            article = Article.first(id: article.id)
+        refute article.rank.zero?
+    end
 
-            refute article.rank.zero?
-        end
+    it "doesn't constantly increase articles rank" do
+        create(:keyword, {word: 'software', rank: 5})
+        create(:keyword, {word: 'keyboard', rank: 2})
+        create(:keyword, {word: 'development', rank: 6})
 
-        def test_service_doesnt_continuously_increase_rank
-            create(:keyword, {word: 'software', rank: 5})
-            create(:keyword, {word: 'keyboard', rank: 2})
-            create(:keyword, {word: 'development', rank: 6})
+        create(:article_with_content)
+        article = create(:article, {title: 'On Software Development', rank: 0})
 
-            create(:article_with_content)
-            article = create(:article, {title: 'On Software Development', rank: 0})
+        output = StringIO.new
+        service = HNews::SuggestArticle.new input: nil, output: output
 
-            output = StringIO.new
-            service = SuggestArticle.new input: nil, output: output
+        # run the service twice
+        service.start
+        service.start
 
-            # run the service twice
-            service.start
-            service.start
+        article = Article.first(id: article.id)
 
-            article = Article.first(id: article.id)
-
-            assert_equal article.rank, 11
-        end
+        assert_equal article.rank, 11
     end
 end
