@@ -33,3 +33,9 @@ hnews learn
 ```
 
 This will list all thirty articles currently on the front page, and allow you to pick articles outside of the suggestion system. This is useful if you want to "teach" the system, or if you see an article you like which is not appearing in the suggestion results.
+
+## License
+
+Released under the MIT license. See the [LICENSE][] file for further details.
+
+[license]: LICENSE
