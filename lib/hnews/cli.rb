@@ -42,5 +42,11 @@ module HNews
             article.read = true
             article.save
         end
+
+        desc :version, "Output version info"
+        def version
+            require "hnews/version"
+            puts "hnews-suggest version #{HNews::VERSION}"
+        end
     end
 end
