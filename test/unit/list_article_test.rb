@@ -9,7 +9,7 @@ describe HNews::ListArticles do
         service = HNews::ListArticles.new input: nil, output: output
         service.start
 
-        assert_includes output.string, "[#{article.id}] Programmers block"
+        output.string.must_include "[#{article.id}] Programmers block"
     end
 
     it "lists thirty articles" do
@@ -23,6 +23,6 @@ describe HNews::ListArticles do
 
         articles = output.string.split("\n")
 
-        assert_equal 30, articles.length
+        articles.length.must_equal 30
     end
 end

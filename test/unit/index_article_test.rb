@@ -12,7 +12,7 @@ describe HNews::IndexArticle do
         service = HNews::IndexArticle.new(@article, {input: @input, output: @output})
         service.start
 
-        assert_includes @output.string, "Indexed #{@article.title}"
+        @output.string.must_include "Indexed #{@article.title}"
     end
 
     it "filters out end words" do
@@ -23,7 +23,7 @@ describe HNews::IndexArticle do
         words = content.split(/\W+/)
 
         HNews::END_WORDS.each do |end_word|
-            refute words.include?(end_word), "End word '#{end_word}' found in content"
+            words.wont_include end_word
         end
     end
 
@@ -31,8 +31,7 @@ describe HNews::IndexArticle do
         service = HNews::IndexArticle.new(@article, {input: @input, output: @output})
         service.start
 
-        keywords = Keyword.all.count
-        assert keywords > 0
+        Keyword.all.count.must_be :>, 0
     end
 
     it "increases the keyword rank" do
@@ -42,7 +41,7 @@ describe HNews::IndexArticle do
 
         keyword = Keyword.first(word: 'keyboard')
 
-        assert_equal keyword.rank, 6
+        keyword.rank.must_equal 6
     end
 
     it "update the last_used attribute on the keywords" do
@@ -53,7 +52,7 @@ describe HNews::IndexArticle do
 
         keyword = Keyword.first(word: 'keyboard')
 
-        refute keyword.last_used == now
+        keyword.last_used.wont_equal now
     end
 
     it "indexes the articles title" do
@@ -62,6 +61,6 @@ describe HNews::IndexArticle do
         service.start
 
         word = Keyword.first(word: "programming")
-        refute word.nil?
+        word.wont_be_nil
     end
 end

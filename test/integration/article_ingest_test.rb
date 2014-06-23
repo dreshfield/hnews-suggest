@@ -9,6 +9,6 @@ describe HNews::Ingest do
     it "ingests articles from Hacker News" do
         @ingest.start
 
-        assert_equal 30, @ingest.articles.length
+        @ingest.articles.length.must_equal 30
     end
 end

@@ -14,8 +14,8 @@ describe HNews::IndexArticle do
         service = HNews::SuggestArticle.new input: nil, output: output
         service.start
 
-        assert_includes output.string, "[#{article.id}] On Software Development"
-        assert_includes output.string, article.url
+        output.string.must_include "[#{article.id}] On Software Development"
+        output.string.must_include article.url
     end
 
     it "sets the articles rank" do
@@ -32,7 +32,7 @@ describe HNews::IndexArticle do
 
         article = Article.first(id: article.id)
 
-        refute article.rank.zero?
+        article.rank.must_be :>, 0
     end
 
     it "doesn't constantly increase articles rank" do
@@ -52,6 +52,6 @@ describe HNews::IndexArticle do
 
         article = Article.first(id: article.id)
 
-        assert_equal article.rank, 11
+        article.rank.must_equal 11
     end
 end

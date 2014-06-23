@@ -12,7 +12,6 @@ describe HNews::ScrapeArticle do
         service.start
 
         article = Article.first(id: @article.id)
-
-        refute article.content.empty?
+        article.content.wont_be_empty
     end
 end

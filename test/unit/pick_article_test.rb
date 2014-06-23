@@ -13,7 +13,7 @@ describe HNews::PickArticle do
         service = HNews::PickArticle.new input: input, output: @output
         service.start
 
-        assert_includes @output.string, "Please enter an id:"
+        @output.string.must_include "Please enter an id:"
     end
 
     it "allows an article to be chosen" do
@@ -22,7 +22,7 @@ describe HNews::PickArticle do
         service = HNews::PickArticle.new input: input, output: @output
         service.start
 
-        assert_includes @output.string, "Picked: Programmers block"
+        @output.string.must_include "Picked: Programmers block"
     end
 
     it "id can't be nil" do
@@ -31,7 +31,7 @@ describe HNews::PickArticle do
         service = HNews::PickArticle.new input: input, output: @output
         service.start
 
-        assert_includes @output.string, "Please enter an id"
+        @output.string.must_include "Please enter an id"
     end
 
     it "fails if id is not found" do
@@ -40,7 +40,7 @@ describe HNews::PickArticle do
         service = HNews::PickArticle.new input: input, output: @output
         service.start
 
-        assert_includes @output.string, "Please enter an id"
+        @output.string.must_include "Please enter an id"
     end
 
     it "returns an article" do
@@ -49,6 +49,6 @@ describe HNews::PickArticle do
         service = HNews::PickArticle.new input: input, output: @output
         article = service.start
 
-        assert_equal @article.id, article.id
+        @article.id.must_equal article.id
     end
 end
