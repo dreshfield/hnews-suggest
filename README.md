@@ -1,4 +1,4 @@
-# HNews
+# HNews Suggest
 
 Automatically suggest Hacker News articles from the command line!
 
@@ -15,7 +15,7 @@ __note__: It's worth mentioning that the method used to rank and suggest article
 Installation is super easy! (if you have ruby already installed).
 
 ```
-gem install hnews
+gem install hnews-suggest
 ```
 
 ## Usage
