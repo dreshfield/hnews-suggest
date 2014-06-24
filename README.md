@@ -26,7 +26,9 @@ Using the gem is really simple too!
 hnews suggest
 ```
 
-This will list five articles which you may like. You will be prompted to pick one of the five, and prompted again on whether you liked or disliked the article. Your answers here will influence future suggestions.
+This command will suggest the top ranked article currently on the Hacker News home page. The article's title and URL will be displayed, followed by a prompt asking for your feedback. If you liked the suggested article, enter `y`. Otherwise enter `n`.
+
+You can also pass the `--open` option to the suggest command. This will open the suggested article in your browser.
 
 ```
 hnews learn
