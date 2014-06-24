@@ -1,10 +1,10 @@
 module HNews
     class SuggestArticle
+        attr_reader :article
+
         def initialize opts={}
             @input = opts[:input] || $stdin
             @output = opts[:output] || $stdout
-
-            @suggestions = []
         end
 
         def start
@@ -35,15 +35,13 @@ module HNews
 
         def suggest_articles
             articles = Article.where(read: nil).exclude(rank: nil)
-            articles = articles.order(:rank).limit(5).reverse
+            @article = articles.order(:rank).limit(1).reverse.first
 
-            articles.each do |a|
-                @output.puts <<EOF
-[#{a.id}] #{a.title} (#{a.rank})
-    #{a.url}
+            @output.puts <<EOF
+[#{@article.id}] #{@article.title} (#{@article.rank})
+    #{@article.url}
 
 EOF
-            end
         end
 
     end

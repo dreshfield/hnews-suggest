@@ -26,21 +26,23 @@ module HNews
             suggestion = SuggestArticle.new
             suggestion.start
 
-            pick = PickArticle.new
-            article = pick.start
-
-            $stdout.print "Did you like this article? [y/n]"
+            $stdout.print "Did you like this article? [y/n] "
             answer = $stdin.gets.chomp.downcase
+
             if answer == "y"
-                scrape = ScrapeArticle.new article
+                scrape = ScrapeArticle.new suggestion.article
                 scrape.start
 
-                index = IndexArticle.new article
+                index = IndexArticle.new suggestion.article
                 index.start
+            elsif answer == "n"
+                # todo: perhaps suggest another article here?
+            else
+                exit
             end
 
-            article.read = true
-            article.save
+            suggestion.article.read = true
+            suggestion.article.save
         end
 
         desc :version, "Output version info"
