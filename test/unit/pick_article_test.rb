@@ -31,7 +31,7 @@ describe HNews::PickArticle do
         service = HNews::PickArticle.new input: input, output: @output
         service.start
 
-        @output.string.must_include "Please enter an id"
+        @output.string.must_include "Not a valid id"
     end
 
     it "fails if id is not found" do
@@ -40,15 +40,15 @@ describe HNews::PickArticle do
         service = HNews::PickArticle.new input: input, output: @output
         service.start
 
-        @output.string.must_include "Please enter an id"
+        @output.string.must_include "Not a valid id"
     end
 
-    it "returns an article" do
+    it "allows the articled to be accessed" do
         input = StringIO.new("#{@article.id}\n")
 
         service = HNews::PickArticle.new input: input, output: @output
-        article = service.start
+        service.start
 
-        @article.id.must_equal article.id
+        service.must_respond_to :article
     end
 end

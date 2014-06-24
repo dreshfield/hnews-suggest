@@ -1,5 +1,7 @@
 module HNews
     class PickArticle
+        attr_reader :article
+
         def initialize opts={}
             @input = opts[:input] || $stdin
             @output = opts[:output] || $stdout
@@ -20,11 +22,12 @@ module HNews
 
         def render
             if @article.nil?
-                @output.puts "Please enter an id"
+                @output.puts "Not a valid id"
+                return false
             else
                 @output.puts "Picked: #{@article.title}"
+                return true
             end
-            return @article
         end
     end
 end

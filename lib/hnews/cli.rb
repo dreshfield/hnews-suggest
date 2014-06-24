@@ -9,12 +9,12 @@ module HNews
             list.start
 
             pick = PickArticle.new
-            article = pick.start
+            pick.start || exit
 
-            scrape = ScrapeArticle.new article
+            scrape = ScrapeArticle.new pick.article
             scrape.start
 
-            index = IndexArticle.new article
+            index = IndexArticle.new pick.article
             index.start
         end
 
