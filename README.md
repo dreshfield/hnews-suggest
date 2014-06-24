@@ -1,5 +1,7 @@
 # HNews Suggest
 
+[![Gem Version](https://badge.fury.io/rb/hnews-suggest.svg)](http://badge.fury.io/rb/hnews-suggest)
+
 Automatically suggest Hacker News articles from the command line!
 
 ## About

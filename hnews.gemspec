@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["gregchapple1@gmail.com"]
   spec.summary       = %q{Automatically suggest articles from Hacker News}
   spec.description   = %q{Suggest articles from Hacker News. Suggestions will get better over time as the gem learns what you like!}
-  spec.homepage      = ""
+  spec.homepage      = "http://github.com/gchp/hnews-suggest"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
