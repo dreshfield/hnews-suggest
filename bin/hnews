@@ -6,6 +6,7 @@ require "fileutils"
 
 require "sequel"
 require "thor"
+require "launchy"
 
 db_dir = File.expand_path "~/.hnews/"
 db_file = File.join db_dir, "db.sqlite3"

@@ -18,13 +18,18 @@ module HNews
             index.start
         end
 
-        desc :suggest, "Suggest an article"
+        desc :suggest, "Suggest an article and optionally open in your browser"
+        option :open, type: :boolean, banner: "Open the suggested article in your browser"
         def suggest
             ingest = Ingest.new
             ingest.start
 
             suggestion = SuggestArticle.new
             suggestion.start
+
+            if options[:open]
+                Launchy.open(suggestion.article.url)
+            end
 
             $stdout.print "Did you like this article? [y/n] "
             answer = $stdin.gets.chomp.downcase
